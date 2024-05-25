@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "django-blog"
 version = "0.1.0"
-description = ""
+description = "Sample blog application using Django"
 authors = ["Sergey Kuzmich <accounts@kuzmi.ch>"]
 readme = "README.md"
 package-mode = false
