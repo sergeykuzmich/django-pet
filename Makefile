@@ -1,7 +1,7 @@
 migrate:
 	poetry run python manage.py migrate
 
-up: migrate
+run: migrate
 	poetry run python manage.py runserver
 
 init: clean
