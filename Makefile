@@ -11,3 +11,6 @@ init: clean
 
 clean:
 	rm -f db.sqlite3
+
+test:
+	poetry run pytest
