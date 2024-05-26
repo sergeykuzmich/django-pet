@@ -4,13 +4,9 @@
 
 ### Prerequisites
 
-* python 3.11.*
-* poetry
+* `python-3.11.*`
+* `poetry-1.8.2`
 
-### Installing
+### Setup & Startup
 
-`make init`
-
-### Running
-
-`make run`
+`make`
