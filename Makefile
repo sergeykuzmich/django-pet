@@ -7,6 +7,7 @@ run: migrate
 init: clean
 	poetry install
 	poetry run python manage.py migrate
+	poetry run python manage.py loaddata blog/fixtures/initdata.json
 	poetry run python manage.py createsuperuser
 
 clean:
