@@ -1,13 +1,15 @@
+default: setup migrate data init run
+
 migrate:
 	poetry run python manage.py migrate
 
-run: migrate
+run:
 	poetry run python manage.py runserver
 
-init: clean
+setup:
 	poetry install
-	poetry run python manage.py migrate
-	poetry run python manage.py loaddata blog/fixtures/initdata.json
+
+init:
 	poetry run python manage.py createsuperuser
 
 clean:
@@ -15,3 +17,6 @@ clean:
 
 test:
 	poetry run pytest
+
+data:
+	poetry run python manage.py loaddata blog/fixtures/initdata.json
