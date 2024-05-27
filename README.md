@@ -10,3 +10,27 @@
 ### Setup & Startup
 
 `make`
+
+## Directories
+
+```plaintext
+.
+├── blog # primary app
+├── ├── fixtures # initial data
+├── ├── ├── initial_data.json
+├── ├── migrations # database migrations
+├── ├── ├── ...
+├── ├── templates # html templates
+├── ├── ├── blog
+├── ├── ├── ├── ...
+├── ├── ├── registration
+├── ├── ├── ├── ...
+├── ├── ├── base.html
+├── ├── ├── home.html
+├── core # core django settings
+├── ├── ...
+├── tests # test cases
+├── ├── ...
+├── utils # utility functions
+├── ├── ...
+```
