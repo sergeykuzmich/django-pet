@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en" class="h-full bg-white">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>{% block title %}Home{% endblock %}</title>
+</head>
+<body class="h-full flex flex-col text-gray-700">
+<div class="flex-1 flex flex-col justify-items-stretch">
+    <nav>
+        <div class="mx-auto max-w-7xl px-8 border-b border-1">
+            <div class="flex h-24 items-center justify-between">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <a href="{% url 'index' %}" class="text-indigo-600 hover:text-indigo-700">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                 stroke="currentColor" class="size-12">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                      d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z"></path>
+                            </svg>
+                        </a>
+                    </div>
+                    <div>
+                        <div class="ml-10 flex items-baseline space-x-4">
+
+                            <a href="{% url 'index' %}"
+                               class="rounded-full px-3 py-2 text-sm font-medium {% if request.resolver_match.url_name == 'index' %}bg-indigo-600 text-white{% else %}hover:bg-gray-300{% endif %}">Home</a>
+                            {% with 'post-list post-detail' as list %}
+                                <a href="{% url 'post-list' %}"
+                                   class="rounded-full px-3 py-2 text-sm font-medium {% if request.resolver_match.url_name in list %}bg-indigo-600 text-white{% else %}hover:bg-gray-300{% endif %}">Posts</a>
+                            {% endwith %}
+                            {% with 'category-posts' as list %}
+                                <div class="relative group cursor-pointer rounded-full px-3 py-2 text-sm font-medium {% if request.resolver_match.url_name in list %}bg-indigo-600 text-white{% else %}hover:bg-gray-300{% endif %}">
+                                    Categories
+                                    <div class="absolute mt-2 p-2 opacity-0 scale-0 group-hover:scale-100 group-hover:opacity-100 transition-all origin-top-center left-1/2 z-10 flex w-screen max-w-max -translate-x-1/2">
+                                        <div class="grid gap-8 grid-cols-3 p-6 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5">
+                                            {% for category in all_categories %}
+                                                <a href="{% url 'category-posts' pk=category.id %}"
+                                                   class="font-medium text-gray-700 block hover:text-indigo-600">{{ category.name }}</a>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endwith %}
+                            {% with 'tag-posts' as list %}
+                                <div class="relative group cursor-pointer rounded-full px-3 py-2 text-sm font-medium {% if request.resolver_match.url_name in list %}bg-indigo-600 text-white{% else %}hover:bg-gray-300{% endif %}">
+                                    Tags
+                                    <div class="absolute mt-2 p-2 opacity-0 scale-0 group-hover:scale-100 group-hover:opacity-100 transition-all origin-top-center left-1/2 z-10 flex w-screen max-w-max -translate-x-1/2">
+                                        <div class="flex flex-wrap gap-2 justify-center max-w-72 p-6 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5">
+                                            {% for tag in all_tags %}
+                                                <a href="{% url 'tag-posts' pk=tag.id %}"
+                                                   class="font-medium px-2 py-1 rounded-full bg-indigo-600 text-white block hover:bg-indigo-700">{{ tag.name }}</a>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endwith %}
+                            {% if user.is_superuser %}
+                                <a href="{% url 'analytics' %}"
+                                   class="rounded-full px-3 py-2 text-sm font-medium {% if request.resolver_match.url_name == 'analytics' %}bg-indigo-600 text-white{% else %}hover:bg-gray-300{% endif %}">Analytics</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center ml-6">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'post-create' %}"
+                           class="rounded-full bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 mr-8 font-medium">Add
+                            Post</a>
+                    {% endif %}
+                    <div class="relative py-3 cursor-pointer group">
+                        {% if user.is_authenticated %}
+                            <div class="flex align-center">
+                                <div>
+                                    <div class="text-base font-medium leading-none">{% firstof user.get_full_name user.username %}</div>
+                                    <div class="text-sm font-medium text-gray-500">{{ user.email }}</div>
+                                </div>
+                                <div class="ml-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                         stroke-width="1.5" stroke="currentColor" class="size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                              d="m19.5 8.25-7.5 7.5-7.5-7.5"></path>
+                                    </svg>
+
+                                </div>
+                            </div>
+                            <div class="opacity-0 scale-0 group-hover:scale-100 group-hover:opacity-100 transition-all absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                            >
+                                <form action="{% url 'logout' %}" method="POST">
+                                    {% csrf_token %}
+                                    <button type="submit" class="block px-4 py-2 text-sm w-full text-left">Sign out
+                                    </button>
+                                </form>
+
+                            </div>
+                        {% else %}
+                            <div>
+                                <a href="{% url 'login' %}" class="text-base font-medium leading-none"
+                                   id="user-menu-item">Sign in &rarr;</a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main class="mx-auto h-full max-w-7xl w-full py-8 lg:px-8">
+        {% block content %}{% endblock %}
+    </main>
+</div>
+<footer class="mx-auto max-w-7xl w-full p-8 border-t border-">
+    <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">
+        © 2024 <a href="/" class="hover:underline">Remedy Labs</a>. All Rights Reserved.
+    </span>
+</footer>
+</body>
+</html>

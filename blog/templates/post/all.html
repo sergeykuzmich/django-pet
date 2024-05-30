@@ -1,0 +1,5 @@
+{% extends 'layout.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+    {% include 'post/_list.html' with posts=posts heading='All posts' %}
+{% endblock %}

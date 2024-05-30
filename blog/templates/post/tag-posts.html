@@ -1,0 +1,5 @@
+{% extends 'layout.html' %}
+{% block title %}{{ tag.name }}{% endblock %}
+{% block content %}
+    {% include 'post/_list.html' with posts=posts heading="Tag: "|add:tag.name %}
+{% endblock %}
