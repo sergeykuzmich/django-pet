@@ -1,0 +1,5 @@
+{% extends 'layout.html' %}
+{% block title %}{{ category.name }}{% endblock %}
+{% block content %}
+    {% include 'post/_list.html' with posts=posts heading="Category: "|add:category.name %}
+{% endblock %}
