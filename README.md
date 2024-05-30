@@ -13,8 +13,8 @@
 
 #### Notes
 
-All users (`sergey`,`bob`,`alice`,`billgates`,`johndoe`) have `!Q@W#E$R` password.
-Only `sergey` & `johndoe` have superuser role.
+* All users (`sergey`,`bob`,`alice`,`billgates`,`johndoe`) have `!Q@W#E$R` password.
+* Only `sergey` & `johndoe` have superuser role.
 
 ## Directories
 
